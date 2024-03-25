@@ -1,14 +1,14 @@
 import cv2
 import numpy as np
 import os
-import face_recognition
+import face_recognition as fr
 
 def load_images(dataset_path):
     person_images = {}
     for image_file in os.listdir(dataset_path):
         img_path= os.path.join(dataset_path, image_file)
-        person_image = face_recognition.load_image_file(img_path)  
-        person_face_encoding =face_recognition.face_encodings(person_image)[0] # encoding the image 
+        person_image = fr.load_image_file(img_path)  
+        person_face_encoding =fr.encodings(person_image)[0] # encoding the image 
         person_name= os.path.splitext(image_file)[0]  # Using splitext to remove extension
         person_images[person_name] = {"image": person_image,  "encoding": person_face_encoding} # assign image and vectors to dict
     return person_images
@@ -18,7 +18,7 @@ def recognize_face(face_encoding, person_images):
     recognized_person = None
 
     for person, data in person_images.items():
-        distance = face_recognition.face_distance([data['encoding']], face_encoding) # distance between vectors
+        distance = fr.face_distance([data['encoding']], face_encoding) # distance between vectors
         if distance < min_distance:
             min_distance  = distance
             recognized_person =person
@@ -30,10 +30,10 @@ cap = cv2.VideoCapture(0)
 while True:
     ret, frame = cap.read()
 
-    face_locations =face_recognition.face_locations(frame)
-    face_encodings = face_recognition.face_encodings(frame)
+    face_locations =fr.face_locations(frame)
+    encodings = fr.encodings(frame)
 
-    for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
+    for (top, right, bottom, left), face_encoding in zip(face_locations, encodings):
         label= recognize_face(face_encoding, person_images)
         
         # bounding box around the face
