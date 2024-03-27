@@ -4,11 +4,11 @@ import os
 import pickle
 
 
-face_cascade = cv2.CascadeClassifier("C:/Users/A-Tech/Desktop/building_object_detection_using_YOLO/face recognition/face-recognition-opencv/data/haarcascade_frontalface_alt2.xml")
+face_cascade = cv2.CascadeClassifier("C:/Users/A-Tech/Desktop/building_object_detection_using_YOLO/face recognition/face-recognition-opencv/using_opencv_/data/haarcascade_frontalface_alt2.xml")
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("C:/Users/A-Tech/Desktop/building_object_detection_using_YOLO/face recognition/face-recognition-opencv/face-trainer.yml")
+recognizer.read("C:/Users/A-Tech/Desktop/building_object_detection_using_YOLO/face recognition/face-recognition-opencv/using_opencv_/face-trainer.yml")
 
-pic_path = "C:/Users/A-Tech/Desktop/building_object_detection_using_YOLO/face recognition/face-recognition-opencv/face-labels.pickle"
+pic_path = "C:/Users/A-Tech/Desktop/building_object_detection_using_YOLO/face recognition/face-recognition-opencv/using_opencv_/face-labels.pickle"
 labels = {"person_name": 1}
 with open(pic_path, 'rb') as f:
 	og_labels = pickle.load(f)
